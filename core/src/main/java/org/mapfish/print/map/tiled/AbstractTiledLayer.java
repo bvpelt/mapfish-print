@@ -29,6 +29,10 @@ public abstract class AbstractTiledLayer extends AbstractGeotoolsLayer {
     private final ForkJoinPool forkJoinPool;
     private final MetricRegistry registry;
     private final ForkJoinPool requestForkJoinPool;
+    /**
+     * The image buffer scale used to don't scale the tiles.
+     */
+    protected double imageBufferScaling = 1.0;
 
     /**
      * Constructor.
@@ -78,4 +82,8 @@ public abstract class AbstractTiledLayer extends AbstractGeotoolsLayer {
     protected abstract TileCacheInformation createTileInformation(MapBounds bounds, Rectangle paintArea, double dpi,
                                                                   final boolean isFirstLayer);
 
+    @Override
+    public final double getImageBufferScaling() {
+        return this.imageBufferScaling;
+    }
 }

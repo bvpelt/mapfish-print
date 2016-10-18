@@ -72,10 +72,15 @@ public abstract class AbstractGeotoolsLayer implements MapLayer {
             bounds = transformer.getRotatedBounds(paintAreaPrecise, paintArea);
             graphics2D.setTransform(transformer.getTransform());
             Dimension mapSize = new Dimension(paintArea.width, paintArea.height);
-            layerTransformer = new MapfishMapContext(transformer, bounds, mapSize, transformer.getRotation(), transformer.getDPI(),
-                    transformer.getRequestorDPI(), transformer.isForceLongitudeFirst(), transformer.isDpiSensitiveStyle());
+            layerTransformer = new MapfishMapContext(
+                    transformer, bounds, mapSize,
+                    transformer.getRotation(), false,
+                    transformer.getDPI(),
+                    transformer.getRequestorDPI(),
+                    transformer.isForceLongitudeFirst(),
+                    transformer.isDpiSensitiveStyle()
+            );
         }
-
 
         MapContent content = new MapContent();
         try {

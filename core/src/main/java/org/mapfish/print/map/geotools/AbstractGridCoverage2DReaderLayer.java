@@ -39,6 +39,11 @@ public class AbstractGridCoverage2DReaderLayer extends AbstractGeotoolsLayer {
     }
 
     @Override
+    public final double getImageBufferScaling() {
+        return 1; // TODO
+    }
+
+    @Override
     public final synchronized List<? extends Layer> getLayers(final MfClientHttpRequestFactory httpRequestFactory,
                                                  final MapfishMapContext mapContext,
                                                  final boolean isFirstLayer) throws Exception {

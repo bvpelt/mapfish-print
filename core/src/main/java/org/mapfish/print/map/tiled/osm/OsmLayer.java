@@ -73,6 +73,7 @@ public final class OsmLayer extends AbstractTiledLayer {
                 if (cur <= targetResolution * OsmLayer.this.param.resolutionTolerance) {
                     result = cur;
                     pos = i;
+                    OsmLayer.this.imageBufferScaling = targetResolution * OsmLayer.this.param.resolutionTolerance / cur;
                 }
             }
 

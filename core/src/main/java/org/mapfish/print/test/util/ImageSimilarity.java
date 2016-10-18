@@ -224,7 +224,12 @@ public final class ImageSimilarity {
         if (file.getName().endsWith(".svg")) {
             return convertFromSvg(path, width, height);
         } else {
-            return ImageIO.read(file);
+            BufferedImage originalImage = ImageIO.read(file);
+            BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
+            Graphics2D g = resizedImage.createGraphics();
+            g.drawImage(originalImage, 0, 0, width, height, null);
+            g.dispose();
+            return resizedImage;
         }
     }
 

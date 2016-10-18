@@ -77,4 +77,9 @@ public abstract class AbstractSingleImageLayer extends AbstractGeotoolsLayer {
     protected abstract BufferedImage loadImage(MfClientHttpRequestFactory requestFactory,
                                                MapfishMapContext transformer,
                                                boolean isFirstLayer) throws Throwable;
+
+    @Override
+    public final double getImageBufferScaling() {
+        return 1;
+    }
 }

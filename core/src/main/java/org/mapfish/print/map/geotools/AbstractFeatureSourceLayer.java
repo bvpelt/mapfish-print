@@ -103,4 +103,9 @@ public abstract class AbstractFeatureSourceLayer extends AbstractGeotoolsLayer {
     public final Boolean shouldRenderAsSvg() {
         return this.renderAsSvg;
     }
+
+    @Override
+    public final double getImageBufferScaling() {
+        return 1;
+    }
 }

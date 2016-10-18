@@ -26,6 +26,11 @@ public interface MapLayer {
     Optional<MapLayer> tryAddLayer(MapLayer newLayer);
 
     /**
+     * Get the image buffer scaling to don't scale tiles of tiled layer.
+     */
+    double getImageBufferScaling();
+
+    /**
      * Render the layer to the graphics2D object.
      * @param graphics2D   the graphics object.
      * @param clientHttpRequestFactory The factory to use for making http requests.

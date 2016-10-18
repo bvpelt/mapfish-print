@@ -50,8 +50,7 @@ public final class GridLayer implements MapLayer {
                      final boolean renderAsSvg,
                      final GridParam params,
                      final LabelPositionCollector labels) {
-        this.grid = new AbstractFeatureSourceLayer(executorService, featureSourceSupplier, styleSupplier, renderAsSvg, params) {
-        };
+        this.grid = new AbstractFeatureSourceLayer(executorService, featureSourceSupplier, styleSupplier, renderAsSvg, params) { };
         this.params = params;
         this.labels = labels;
     }
@@ -59,6 +58,11 @@ public final class GridLayer implements MapLayer {
     @Override
     public Optional<MapLayer> tryAddLayer(final MapLayer newLayer) {
         return Optional.absent();
+    }
+
+    @Override
+    public double getImageBufferScaling() {
+        return 1.0;
     }
 
     @Override

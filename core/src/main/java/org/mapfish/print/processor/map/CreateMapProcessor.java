@@ -203,11 +203,33 @@ public final class CreateMapProcessor extends AbstractProcessor<CreateMapProcess
                 }
             } else {
                 // render layer as raster graphic
-                final BufferedImage bufferedImage = new BufferedImage(mapContext.getMapSize().width,
-                        mapContext.getMapSize().height, this.imageType.value);
-                Graphics2D graphics2D = createClippedGraphics(mapContext, areaOfInterest, bufferedImage.createGraphics());
+                double imageBufferScaling = layer.getImageBufferScaling();
+                final BufferedImage bufferedImage = new BufferedImage(
+                        (int) Math.round(mapContext.getMapSize().width * imageBufferScaling),
+                        (int) Math.round(mapContext.getMapSize().height * imageBufferScaling),
+                        this.imageType.value
+                );
+                Graphics2D graphics2D = createClippedGraphics(
+                        mapContext, areaOfInterest,
+                        bufferedImage.createGraphics()
+                );
                 try {
-                    layer.render(graphics2D, clientHttpRequestFactory, mapContext, isFirstLayer);
+
+                    MapfishMapContext transformer = new MapfishMapContext(
+                            mapContext,
+                            mapContext.getBounds(),
+                            new Dimension(
+                                    (int) Math.round(mapContext.getMapSize().width * imageBufferScaling),
+                                    (int) Math.round(mapContext.getMapSize().height * imageBufferScaling)
+                            ),
+                            mapContext.getRotation(), false,
+                            mapContext.getDPI() * imageBufferScaling,
+                            mapContext.getRequestorDPI(),
+                            mapContext.isForceLongitudeFirst(),
+                            mapContext.isDpiSensitiveStyle()
+                    );
+
+                    layer.render(graphics2D, clientHttpRequestFactory, transformer, isFirstLayer);
 
                     path = new File(printDirectory, mapKey + "_layer_" + i + ".png");
                     ImageIO.write(bufferedImage, "png", path);
@@ -266,7 +288,8 @@ public final class CreateMapProcessor extends AbstractProcessor<CreateMapProcess
 
     private Graphics2D createClippedGraphics(@Nonnull final MapfishMapContext transformer,
                                              @Nullable final AreaOfInterest areaOfInterest,
-                                             @Nonnull final Graphics2D graphics2D) {
+                                             @Nonnull final Graphics2D graphics2D
+    ) {
         if (areaOfInterest != null && areaOfInterest.display == AreaOfInterest.AoiDisplay.CLIP) {
             final Polygon screenGeometry = areaOfInterestInScreenCRS(transformer, areaOfInterest);
             final ShapeWriter shapeWriter = new ShapeWriter();
@@ -280,8 +303,10 @@ public final class CreateMapProcessor extends AbstractProcessor<CreateMapProcess
     private Polygon areaOfInterestInScreenCRS(@Nonnull final MapfishMapContext transformer,
                                               @Nullable final AreaOfInterest areaOfInterest) {
         if (areaOfInterest != null) {
-            final AffineTransform worldToScreenTransform = worldToScreenTransform(transformer.toReferencedEnvelope(),
-                    transformer.getPaintArea());
+            final AffineTransform worldToScreenTransform = worldToScreenTransform(
+                    transformer.toReferencedEnvelope(),
+                    transformer.getPaintArea()
+            );
 
             MathTransform mathTransform = new AffineTransform2D(worldToScreenTransform);
             final Polygon screenGeometry;
