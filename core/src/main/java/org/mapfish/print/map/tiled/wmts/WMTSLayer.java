@@ -26,6 +26,8 @@ import java.net.URISyntaxException;
 
 import javax.annotation.Nonnull;
 
+import static org.mapfish.print.Constants.OGC_DPI;
+
 
 /**
  * Class for loading data from a WMTS.
@@ -67,9 +69,10 @@ public class WMTSLayer extends AbstractTiledLayer {
         public WMTSTileCacheInfo(final MapBounds bounds, final Rectangle paintArea, final double dpi) {
             super(bounds, paintArea, dpi, WMTSLayer.this.param);
             double diff = Double.POSITIVE_INFINITY;
-            final double targetScale = bounds.getScaleDenominator(paintArea, dpi).getDenominator();
+            final double targetPseudoScaleDenominator = bounds.getScaleDenominator(paintArea, dpi).getDenominator() * dpi;
+
             for (Matrix m : WMTSLayer.this.param.matrices) {
-                double delta = Math.abs(m.scaleDenominator - targetScale);
+                double delta = Math.abs(m.scaleDenominator - targetPseudoScaleDenominator);
                 if (delta < diff) {
                     diff = delta;
                     this.matrix = m;
@@ -77,7 +80,7 @@ public class WMTSLayer extends AbstractTiledLayer {
             }
 
             if (this.matrix == null) {
-                throw new IllegalArgumentException("Unable to find a matrix that at the scale: " + targetScale);
+                throw new IllegalArgumentException("Unable to find a matrix that at the scale: " + targetPseudoScaleDenominator);
             }
         }
 
@@ -158,8 +161,8 @@ public class WMTSLayer extends AbstractTiledLayer {
         }
 
         @Override
-        public Scale getScale() {
-            return new Scale(this.matrix.scaleDenominator);
+        public double getResolution() {
+            return new Scale(this.matrix.scaleDenominator).toResolution(this.bounds.getProjection(), OGC_DPI);
         }
 
         @Override
