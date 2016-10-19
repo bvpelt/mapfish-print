@@ -9,21 +9,21 @@
         {
           "type": "geojson",
           "style": "file://thickline.sld",
-          "renderAsSvg" : "false",
+          "renderAsSvg": "false",
           "opacity": 0.3,
           "geojson": "http://center_wmts_fixedscale.json/geojson/ny-roads-3857.json"
         },
         {
           "type": "geojson",
           "style": "file://thinline.sld",
-          "renderAsSvg" : "true",
+          "renderAsSvg": "true",
           "opacity": 0.5,
           "geojson": "http://center_wmts_fixedscale.json/geojson/ny-roads-3857.json"
         },
         {
           "type": "geojson",
           "style": "file://thinline.sld",
-          "renderAsSvg" : "true",
+          "renderAsSvg": "true",
           "opacity": 0,
           "geojson": "http://center_wmts_fixedscale.json/geojson/ny-roads-3857.json"
         },{
@@ -73,7 +73,7 @@
             "tileSize": [256, 256],
             "topLeftCorner": [-2.003750834E7, 2.0037508E7]
           }],
-          "imageExtension": "tiff"
+          "imageFormat": "image/tiff"
         }
 
       ]
