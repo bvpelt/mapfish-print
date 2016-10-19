@@ -17,8 +17,8 @@
                 "renderAsSvg": false,
                 "labelFomat": "%1.2f %s",
                 "font": {
-                    "name" : ["Arial"],
-                    "size" : "10"
+                    "name": ["Liberation Sans"],
+                    "size": "10"
                 },
                 "rotateLabels": false,
                 "horizontalYOffset": 20.0,

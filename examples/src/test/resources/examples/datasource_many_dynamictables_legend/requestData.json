@@ -53,7 +53,7 @@
                         "pointerEvents": "visiblePainted",
                         "cursor": "inherit",
                         "fontColor": "#000000",
-                        "fontFamily": "Arial",
+                        "fontFamily": "Liberation Sans",
                         "labelAlign": "cm",
                         "labelOutlineColor": "white",
                         "labelOutlineWidth": 3

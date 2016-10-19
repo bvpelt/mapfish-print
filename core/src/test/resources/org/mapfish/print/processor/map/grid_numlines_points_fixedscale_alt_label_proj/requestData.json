@@ -17,8 +17,8 @@
                 "renderAsSvg": false,
                 "labelProjection": "EPSG:3857",
                 "font": {
-                    "name" : ["Arial"],
-                    "size" : "10"
+                    "name": ["Liberation Sans"],
+                    "size": "10"
                 }
             },{
                 "type": "tiledwms",

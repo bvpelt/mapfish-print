@@ -23,6 +23,11 @@ branch and then committed GitHub will automatically build the updated site at: h
 
 If you only want to build the docs simply run
 
+.. note::
+
+   The test (part of the build) requires the 'Liberation Sans' font, witch can be downloaded
+   `here <https://www.fontsquirrel.com/fonts/Liberation-Sans>`_.
+
 .. code::
 
   > ./gradlew docs:build
