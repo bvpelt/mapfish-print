@@ -28,6 +28,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mapfish.print.servlet.MapPrinterServlet.JSON_ATTRIBUTES;
@@ -50,6 +53,7 @@ import static org.mapfish.print.servlet.MapPrinterServlet.JSON_REQUEST_HEADERS;
         ExamplesTest.TEST_SPRING_XML
 })
 public class ExamplesTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExamplesTest.class);
 
     public static final String DEFAULT_SPRING_XML = "classpath:mapfish-spring-application-context.xml";
     public static final String TEST_SPRING_XML = "classpath:test-http-request-factory-application-context.xml";
@@ -124,13 +128,12 @@ public class ExamplesTest {
 
         if (!errors.isEmpty()) {
             for (Map.Entry<String, Throwable> error : errors.entrySet()) {
-                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                System.err.println("\nExample: '" + error.getKey() + "' failed with the error:");
-                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                error.getValue().printStackTrace();
-                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                LOGGER.error("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                LOGGER.error("Example: '{}'", error.getKey());
+                LOGGER.error("failed with the error: ", error.getValue());
+                LOGGER.error("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             }
-            System.err.println("\n" + errors.size() + " examples failed");
+            LOGGER.error("{} examples failed", errors.size());
 
             StringBuilder errorReport = new StringBuilder();
             errorReport.append("\n").append(errors.size()).append(" errors encountered while running ");
