@@ -116,24 +116,21 @@ public class ExamplesTest {
         int testsRan = 0;
         final File examplesDir = getFile(ExamplesTest.class, "/examples");
 
-        System.out.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& test out");
-        System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& test err");
-
         for (File example : Files.fileTreeTraverser().children(examplesDir)) {
             if (example.isDirectory() && exampleFilter.matcher(example.getName()).matches()) {
                 testsRan += runExample(example, errors);
             }
         }
 
-        System.out.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& test out");
-        System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& test err");
-
         if (!errors.isEmpty()) {
             for (Map.Entry<String, Throwable> error : errors.entrySet()) {
+                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                 System.err.println("\nExample: '" + error.getKey() + "' failed with the error:");
+                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                 error.getValue().printStackTrace();
+                System.err.println("\n&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             }
-            System.err.println("\n" + errors.size() + "Examples failed");
+            System.err.println("\n" + errors.size() + " examples failed");
 
             StringBuilder errorReport = new StringBuilder();
             errorReport.append("\n").append(errors.size()).append(" errors encountered while running ");
