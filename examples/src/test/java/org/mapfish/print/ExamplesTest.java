@@ -139,6 +139,12 @@ public class ExamplesTest {
             errorReport.append("\n").append(errors.size()).append(" errors encountered while running ");
             errorReport.append(testsRan).append(" examples.\n");
             errorReport.append("See Standard Error for the stack traces.  A summary is as follows:\n\n");
+            for (Map.Entry<String, Throwable> error : errors.entrySet()) {
+                errorReport.append("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                errorReport.append("Example: '" + error.getKey() + "'");
+                errorReport.append("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            }
+            errorReport.append(errors.size() + " examples failed");
 
             for (Map.Entry<String, Throwable> entry : errors.entrySet()) {
                 errorReport.append("    * ").append(entry.getKey()).append(" -> ").append(entry.getValue().getMessage());
