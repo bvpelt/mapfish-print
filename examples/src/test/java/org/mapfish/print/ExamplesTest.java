@@ -142,6 +142,7 @@ public class ExamplesTest {
             for (Map.Entry<String, Throwable> error : errors.entrySet()) {
                 errorReport.append("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                 errorReport.append("Example: '" + error.getKey() + "'");
+                errorReport.append("failed with the error: " + error.getValue());
                 errorReport.append("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             }
             errorReport.append(errors.size() + " examples failed");
